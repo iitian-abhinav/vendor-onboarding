@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: vendor-onboarding
+    runtime: python
+    plan: free
+    region: singapore
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      # Neon Postgres connection string. Keeps runs and documents across restarts.
+      - key: DATABASE_URL
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_MODEL
+        value: openai/gpt-oss-20b
+      # Render's free tier blocks SMTP ports, so use Brevo's HTTPS API there.
+      - key: EMAIL_PROVIDER
+        value: brevo
+      - key: BREVO_API_KEY
+        sync: false
+      - key: EMAIL_FROM
+        sync: false
+      - key: DEMO_REDIRECT_TO
+        sync: false
+      - key: COMPLIANCE_EMAIL
+        sync: false

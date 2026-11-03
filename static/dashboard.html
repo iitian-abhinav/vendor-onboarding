@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard - Vendor Onboarding</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="inner">
+      <a class="brand" href="/">Vendor Onboarding <small>Procurement</small></a>
+      <nav class="nav">
+        <a href="/">New submission</a>
+        <a href="/dashboard.html" class="active">Dashboard</a>
+      </nav>
+      <div class="sys-status" id="sys-status"></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-head">
+      <div>
+        <h1>Dashboard</h1>
+        <p>Every submission processed, the messages sent, and the vendor master the checks run against.</p>
+      </div>
+      <a class="btn primary" href="/">New submission</a>
+    </div>
+
+    <div class="stats" id="stats"></div>
+
+    <div class="tabs" role="tablist">
+      <button type="button" data-tab="runs" class="active">Runs</button>
+      <button type="button" data-tab="outbox">Outbox</button>
+      <button type="button" data-tab="vendors">Vendor master</button>
+    </div>
+
+    <div class="panel" id="tab-runs">
+      <div class="toolbar">
+        <select id="filter-status">
+          <option value="all">All statuses</option>
+          <option value="approved">Approved</option>
+          <option value="pending">Pending</option>
+          <option value="rejected">Rejected</option>
+          <option value="running">Running</option>
+          <option value="error">Error</option>
+        </select>
+        <input type="search" id="filter-q" placeholder="Search vendor or run #">
+        <span class="muted small" id="updated" style="margin-left:auto"></span>
+      </div>
+      <div class="panel-body flush" style="overflow-x:auto">
+        <table class="table">
+          <thead><tr>
+            <th class="num">Run</th><th>Submitted</th><th>Vendor</th><th class="hide-sm">Country</th>
+            <th>Status</th><th class="hide-sm">Main issue</th><th class="num hide-sm">Time</th>
+          </tr></thead>
+          <tbody id="runs"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel" id="tab-outbox" hidden>
+      <div class="panel-body flush" style="overflow-x:auto">
+        <table class="table">
+          <thead><tr>
+            <th>Time</th><th class="num">Run</th><th>Type</th><th>To</th><th>Subject</th><th>Status</th>
+          </tr></thead>
+          <tbody id="outbox"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="tab-vendors" hidden>
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Vendor master</h2>
+          <button type="button" class="btn sm danger" id="reset-btn">Reset demo data</button>
+        </div>
+        <div class="panel-body flush" style="overflow-x:auto">
+          <table class="table">
+            <thead><tr>
+              <th>Code</th><th>Legal name</th><th>Country</th><th>Tax ID</th><th>Bank account</th><th>Source</th>
+            </tr></thead>
+            <tbody id="vendors"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Blocked / debarred list</h2></div>
+        <div class="panel-body flush">
+          <table class="table">
+            <thead><tr><th>Name</th><th>Reason</th></tr></thead>
+            <tbody id="blocked"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>
