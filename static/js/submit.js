@@ -71,16 +71,23 @@ function renderSamples() {
   });
   const box = document.getElementById("samples");
   box.innerHTML = groups.map(s => `
-    <div class="sample">
+    <div class="sample" role="button" tabindex="0" data-key="${esc(s.key)}"
+         aria-label="Load sample: ${esc(s.title)}">
       <span class="sample-ico ${esc(s.expected)}">${icon(SAMPLE_ICON[s.expected] || "info")}</span>
       <div class="sample-main">
         <div class="sample-kind">${esc(s.kind)}</div>
         <div class="sample-title">${esc(s.name.charAt(0).toUpperCase() + s.name.slice(1))}</div>
       </div>
-      <button type="button" class="btn soft sm" data-load="${esc(s.key)}">Load</button>
+      <button type="button" class="btn soft sm" data-load="${esc(s.key)}" tabindex="-1">Load</button>
     </div>`).join("");
-  box.querySelectorAll("[data-load]").forEach(btn =>
-    btn.addEventListener("click", () => loadSample(btn.dataset.load, btn)));
+  // The whole row is clickable (mouse or keyboard); the Load button shows progress.
+  box.querySelectorAll(".sample").forEach(row => {
+    const btn = row.querySelector("[data-load]");
+    row.addEventListener("click", () => loadSample(row.dataset.key, btn));
+    row.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); loadSample(row.dataset.key, btn); }
+    });
+  });
 }
 
 function showNotice(html, kind) {
@@ -101,7 +108,8 @@ async function attachFile(input, url) {
 }
 
 async function loadSample(key, btn) {
-  if (btn) { btn.disabled = true; btn.textContent = "Loading…"; }
+  if (btn && btn.getAttribute("aria-busy") === "true") return;
+  if (btn) { btn.setAttribute("aria-busy", "true"); btn.innerHTML = '<span class="spinner"></span>Loading'; }
   try {
     const sample = await api(`/api/samples/${encodeURIComponent(key)}`);
     form.reset();
@@ -118,7 +126,7 @@ async function loadSample(key, btn) {
   } catch (e) {
     showNotice(`Could not load the sample: ${esc(e.message)}`, "error");
   } finally {
-    if (btn) { btn.disabled = false; btn.textContent = "Load"; }
+    if (btn) { btn.removeAttribute("aria-busy"); btn.textContent = "Load"; }
   }
 }
 
@@ -132,14 +140,18 @@ form.addEventListener("submit", async (event) => {
     return;
   }
   btn.disabled = true;
-  msg.textContent = "Submitting…";
+  btn.setAttribute("aria-busy", "true");
+  btn.innerHTML = '<span class="spinner"></span>Submitting';
+  msg.textContent = "";
   try {
     const result = await api("/api/runs", { method: "POST", body: new FormData(form) });
     window.location.href = `/run.html?id=${result.run_id}`;
   } catch (e) {
     showNotice(`Submission failed: ${esc(e.message)}`, "error");
+    window.scrollTo({ top: 0, behavior: "smooth" });
     btn.disabled = false;
-    msg.textContent = "";
+    btn.removeAttribute("aria-busy");
+    btn.textContent = "Submit for review";
   }
 });
 
@@ -162,3 +174,11 @@ countrySel.addEventListener("change", renderCountry);
   renderCountry();
   renderSamples();
 })();
+
+// If the browser restores this page from its back/forward cache, reset the submit button.
+window.addEventListener("pageshow", () => {
+  const btn = document.getElementById("submit-btn");
+  btn.disabled = false;
+  btn.removeAttribute("aria-busy");
+  btn.textContent = "Submit for review";
+});

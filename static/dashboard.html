@@ -7,7 +7,7 @@
   <link rel="icon" href="data:,">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
   <link rel="stylesheet" href="/css/app.css">
 </head>
 <body data-page="dashboard">
@@ -24,7 +24,7 @@
               <h1>Dashboard</h1>
               <p>Every submission processed, its outcome, and the main issue found. Click a run for its full audit trail.</p>
             </div>
-            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
               <div class="seg" id="range">
                 <button type="button" data-range="today">Today</button>
                 <button type="button" data-range="7d">7 days</button>
@@ -95,7 +95,7 @@
               <h1>Vendor master</h1>
               <p>Vendors we already pay. New submissions are checked against these for reused bank accounts and duplicate tax IDs.</p>
             </div>
-            <button type="button" class="btn" id="reset-btn">Reset demo data</button>
+            <button type="button" class="btn danger" id="reset-btn">Reset demo data</button>
           </div>
           <div class="card">
             <div class="table-wrap">

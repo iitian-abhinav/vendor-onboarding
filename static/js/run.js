@@ -114,9 +114,9 @@ function renderDecision(run) {
     box.innerHTML = `
       <div class="outcome">
         <div class="o-icon"><span class="spinner"></span></div>
-        <div><div class="o-label">In progress</div><div class="o-word" style="color:var(--accent)">Checking…</div>
+        <div><div class="o-label">In progress</div><div class="o-word">Checking…</div>
         <div class="o-reason">The decision appears as soon as stage 5 finishes.</div></div>
-      </div><div style="height:22px"></div>`;
+      </div><div style="height:24px"></div>`;
     return;
   }
   const summarySrc = run.summary_source && run.summary_source.startsWith("ai:")
@@ -136,7 +136,7 @@ function renderDecision(run) {
       <div class="summary">
         <div class="label-line">Reviewer summary ${summarySrc}</div>
         <p>${esc(run.reviewer_summary)}</p>
-      </div>` : '<div style="height:22px"></div>'}`;
+      </div>` : '<div style="height:24px"></div>'}`;
 }
 
 function renderMessages(run) {
@@ -221,7 +221,7 @@ async function poll() {
   } catch (e) {
     document.getElementById("title").textContent = "Run not found";
     document.getElementById("page-notice").innerHTML =
-      `<div class="notice error" style="margin:0 0 20px">${icon("alert")}<div>${esc(e.message)}</div></div>`;
+      `<div class="notice error" style="margin:0 0 24px">${icon("alert")}<div>${esc(e.message)}</div></div>`;
     return;
   }
   if (!window.EventSource) return poll();

@@ -10,7 +10,7 @@ let refreshTimer = null;
 const openMessages = new Set();
 
 const SPLIT_COLORS = {
-  approved: "var(--green-solid)", pending: "var(--amber-solid)", rejected: "var(--red-solid)", other: "#b9bcd0",
+  approved: "var(--success)", pending: "var(--warning)", rejected: "var(--error)", other: "var(--faint)",
 };
 const RANGE_TEXT ={ today: "Today", "7d": "Last 7 days", "30d": "Last 30 days", all: "All submissions" };
 
