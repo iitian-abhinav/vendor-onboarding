@@ -5,64 +5,63 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Run - Vendor Onboarding</title>
   <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap">
   <link rel="stylesheet" href="/css/app.css">
 </head>
-<body>
-  <header class="topbar">
-    <div class="inner">
-      <a class="brand" href="/">Vendor Onboarding <small>Procurement</small></a>
-      <nav class="nav">
-        <a href="/">New submission</a>
-        <a href="/dashboard.html">Dashboard</a>
-      </nav>
-      <div class="sys-status" id="sys-status"></div>
-    </div>
-  </header>
-
-  <main class="container">
-    <div class="page-head">
-      <div>
-        <div class="muted small"><a href="/dashboard.html">Dashboard</a> / Run <span id="crumb"></span></div>
-        <h1 id="title">Loading…</h1>
-        <p id="meta"></p>
-      </div>
-      <div id="head-status"></div>
-    </div>
-
-    <div id="page-notice"></div>
-
-    <div class="grid wide-right">
-      <section>
-        <div class="panel">
-          <div class="panel-head">
-            <h2>Process</h2>
-            <span class="small muted" id="stage-counter"></span>
+<body data-page="run">
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <header class="topbar" id="topbar"></header>
+      <main class="content">
+        <div class="page-head">
+          <div>
+            <div class="crumb"><a href="/dashboard.html">Dashboard</a> <span>/</span> <span id="crumb">Run</span></div>
+            <h1 id="title">Loading…</h1>
+            <p id="meta"></p>
           </div>
-          <div class="progress"><div id="progress-bar" style="width:0%"></div></div>
-          <div id="stages"></div>
+          <div id="head-status"></div>
         </div>
-      </section>
 
-      <section>
-        <div class="panel">
-          <div class="panel-head"><h2>Decision</h2></div>
-          <div class="panel-body" id="decision"><span class="muted">Waiting for the checks to finish…</span></div>
+        <div id="page-notice"></div>
+
+        <div class="grid run">
+          <section>
+            <div class="card">
+              <div class="card-head">
+                <div><h2>Process</h2><div class="sub" id="stage-counter">Starting…</div></div>
+                <a class="btn sm soft" href="/">New submission</a>
+              </div>
+              <div class="progress"><div id="progress-bar" style="width:0%"></div></div>
+              <div class="steps" id="stages"></div>
+            </div>
+          </section>
+
+          <section>
+            <div class="card" id="decision-card">
+              <div class="card-head"><h2>Decision</h2></div>
+              <div id="decision"></div>
+            </div>
+            <div class="card">
+              <div class="card-head"><div><h2>Messages</h2><div class="sub" id="msg-count">Emails drafted and sent for this run</div></div></div>
+              <div class="card-body" id="messages"></div>
+            </div>
+            <div class="card">
+              <div class="card-head"><h2>Submission</h2></div>
+              <div class="card-body" id="submission"></div>
+            </div>
+            <div class="card">
+              <div class="card-head"><h2>Documents</h2></div>
+              <div class="files" id="documents"></div>
+            </div>
+          </section>
         </div>
-        <div class="panel">
-          <div class="panel-head"><h2>Messages</h2><span class="small muted" id="msg-count"></span></div>
-          <div class="panel-body" id="messages"><span class="muted">Nothing sent yet.</span></div>
-        </div>
-        <div class="panel">
-          <div class="panel-head"><h2>Submission</h2></div>
-          <div class="panel-body" id="submission"></div>
-        </div>
-        <div class="panel">
-          <div class="panel-head"><h2>Documents</h2></div>
-          <div class="panel-body flush" id="documents"></div>
-        </div>
-      </section>
+      </main>
     </div>
-  </main>
+  </div>
+  <div class="scrim" id="scrim"></div>
 
   <script src="/js/common.js"></script>
   <script src="/js/run.js"></script>

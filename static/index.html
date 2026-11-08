@@ -5,172 +5,164 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>New Submission - Vendor Onboarding</title>
   <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap">
   <link rel="stylesheet" href="/css/app.css">
 </head>
-<body>
-  <header class="topbar">
-    <div class="inner">
-      <a class="brand" href="/">Vendor Onboarding <small>Procurement</small></a>
-      <nav class="nav">
-        <a href="/" class="active">New submission</a>
-        <a href="/dashboard.html">Dashboard</a>
-      </nav>
-      <div class="sys-status" id="sys-status"></div>
-    </div>
-  </header>
-
-  <main class="container">
-    <div class="page-head">
-      <div>
-        <h1>New vendor submission</h1>
-        <p>Fill in the vendor's details and attach their documents, or load one of the demo samples.</p>
-      </div>
-    </div>
-
-    <div class="grid">
-      <form id="form" class="panel" autocomplete="off" novalidate>
-        <div class="panel-body">
-          <div id="form-notice"></div>
-
-          <fieldset>
-            <legend>Company</legend>
-            <div class="form-row">
-              <div class="field">
-                <label for="legal_name">Legal company name <span class="req">*</span></label>
-                <input type="text" id="legal_name" name="legal_name">
-              </div>
-              <div class="field">
-                <label for="country">Country <span class="req">*</span></label>
-                <select id="country" name="country"></select>
-              </div>
-            </div>
-            <div class="form-row one">
-              <div class="field">
-                <label for="address_line">Registered address <span class="req">*</span></label>
-                <input type="text" id="address_line" name="address_line">
-              </div>
-            </div>
-            <div class="form-row three">
-              <div class="field">
-                <label for="city">City <span class="req">*</span></label>
-                <input type="text" id="city" name="city">
-              </div>
-              <div class="field">
-                <label for="state" id="state-label">State</label>
-                <input type="text" id="state" name="state" list="state-list">
-                <datalist id="state-list"></datalist>
-              </div>
-              <div class="field">
-                <label for="postal_code" id="postal-label">Postal code <span class="req">*</span></label>
-                <input type="text" id="postal_code" name="postal_code">
-              </div>
-            </div>
-            <div class="form-row one">
-              <div class="field">
-                <label for="website">Website</label>
-                <input type="text" id="website" name="website" placeholder="https://">
-              </div>
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend>Contact</legend>
-            <div class="form-row three">
-              <div class="field">
-                <label for="contact_name">Contact person <span class="req">*</span></label>
-                <input type="text" id="contact_name" name="contact_name">
-              </div>
-              <div class="field">
-                <label for="contact_email">Email <span class="req">*</span></label>
-                <input type="email" id="contact_email" name="contact_email">
-                <div class="hint">The outcome email is sent here.</div>
-              </div>
-              <div class="field">
-                <label for="contact_phone">Phone <span class="req">*</span></label>
-                <input type="text" id="contact_phone" name="contact_phone">
-              </div>
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend>Tax registration</legend>
-            <div class="form-row">
-              <div class="field">
-                <label for="tax_id" id="tax-label">Tax ID <span class="req">*</span></label>
-                <input type="text" id="tax_id" name="tax_id" class="mono">
-              </div>
-              <div class="field" id="pan-field">
-                <label for="pan">PAN <span class="req">*</span></label>
-                <input type="text" id="pan" name="pan" class="mono">
-              </div>
-              <div class="field" id="company-number-field">
-                <label for="company_number">Companies House number <span class="req">*</span></label>
-                <input type="text" id="company_number" name="company_number" class="mono">
-              </div>
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend>Bank account</legend>
-            <div class="form-row">
-              <div class="field">
-                <label for="bank_account_holder">Account holder name <span class="req">*</span></label>
-                <input type="text" id="bank_account_holder" name="bank_account_holder">
-                <div class="hint">As printed on the bank letter or cheque.</div>
-              </div>
-              <div class="field">
-                <label for="bank_name">Bank name</label>
-                <input type="text" id="bank_name" name="bank_name">
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="field">
-                <label for="bank_account_number">Account number <span class="req">*</span></label>
-                <input type="text" id="bank_account_number" name="bank_account_number" class="mono">
-              </div>
-              <div class="field">
-                <label for="bank_code" id="bank-code-label">Bank code <span class="req">*</span></label>
-                <input type="text" id="bank_code" name="bank_code" class="mono">
-              </div>
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend>Documents</legend>
-            <p class="muted small" style="margin:0 0 8px">PDF, JPG or PNG, up to 5 MB each. Required documents depend on the country.</p>
-            <table class="doc-table"><tbody id="doc-rows"></tbody></table>
-          </fieldset>
-        </div>
-
-        <div class="form-actions">
-          <button type="submit" class="btn primary" id="submit-btn">Submit for review</button>
-          <button type="button" class="btn" id="clear-btn">Clear form</button>
-          <span class="muted small" id="submit-msg"></span>
-        </div>
-      </form>
-
-      <aside>
-        <div class="panel">
-          <div class="panel-head"><h2>Demo samples</h2></div>
-          <div class="panel-body flush" id="samples"><div class="empty">Loading…</div></div>
-        </div>
-        <div class="panel">
-          <div class="panel-head"><h2>What happens next</h2></div>
-          <div class="panel-body small">
-            <ol style="margin:0;padding-left:18px">
-              <li>Intake &amp; completeness</li>
-              <li>Format validation</li>
-              <li>Cross-field consistency</li>
-              <li>Risk &amp; duplicate check</li>
-              <li>Decision: approved, pending or rejected</li>
-              <li>Email to the vendor (and compliance if needed)</li>
-            </ol>
-            <p class="muted" style="margin:10px 0 0">You will be taken to the live run view as soon as you submit.</p>
+<body data-page="submit">
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <header class="topbar" id="topbar"></header>
+      <main class="content">
+        <div class="page-head">
+          <div>
+            <h1>New vendor submission</h1>
+            <p>Enter the vendor's details and attach their documents, or load a demo sample on the right. Each submission runs through six checks and gets a decision in seconds.</p>
           </div>
         </div>
-      </aside>
+
+        <div class="grid">
+          <form id="form" class="card" autocomplete="off" novalidate>
+            <div id="form-notice"></div>
+
+            <section class="form-section">
+              <div class="section-title"><span class="num">1</span><div><h2>Company</h2><p>Registered legal entity and address</p></div></div>
+              <div class="form-row">
+                <div class="field">
+                  <label for="legal_name">Legal company name <span class="req">*</span></label>
+                  <input type="text" id="legal_name" name="legal_name" placeholder="e.g. Acme Components Private Limited">
+                </div>
+                <div class="field">
+                  <label for="country">Country <span class="req">*</span></label>
+                  <select id="country" name="country"></select>
+                </div>
+              </div>
+              <div class="form-row one">
+                <div class="field">
+                  <label for="address_line">Registered address <span class="req">*</span></label>
+                  <input type="text" id="address_line" name="address_line">
+                </div>
+              </div>
+              <div class="form-row three">
+                <div class="field">
+                  <label for="city">City <span class="req">*</span></label>
+                  <input type="text" id="city" name="city">
+                </div>
+                <div class="field">
+                  <label for="state" id="state-label">State</label>
+                  <input type="text" id="state" name="state" list="state-list">
+                  <datalist id="state-list"></datalist>
+                </div>
+                <div class="field">
+                  <label for="postal_code" id="postal-label">Postal code <span class="req">*</span></label>
+                  <input type="text" id="postal_code" name="postal_code">
+                </div>
+              </div>
+              <div class="form-row one">
+                <div class="field">
+                  <label for="website">Website</label>
+                  <input type="text" id="website" name="website" placeholder="https://">
+                </div>
+              </div>
+            </section>
+
+            <section class="form-section">
+              <div class="section-title"><span class="num">2</span><div><h2>Contact</h2><p>Who we email the outcome to</p></div></div>
+              <div class="form-row three">
+                <div class="field">
+                  <label for="contact_name">Contact person <span class="req">*</span></label>
+                  <input type="text" id="contact_name" name="contact_name">
+                </div>
+                <div class="field">
+                  <label for="contact_email">Email <span class="req">*</span></label>
+                  <input type="email" id="contact_email" name="contact_email">
+                </div>
+                <div class="field">
+                  <label for="contact_phone">Phone <span class="req">*</span></label>
+                  <input type="text" id="contact_phone" name="contact_phone" placeholder="+91 …">
+                </div>
+              </div>
+            </section>
+
+            <section class="form-section">
+              <div class="section-title"><span class="num">3</span><div><h2>Tax registration</h2><p>Checked against the country's format and check digits</p></div></div>
+              <div class="form-row">
+                <div class="field">
+                  <label for="tax_id" id="tax-label">Tax ID <span class="req">*</span></label>
+                  <input type="text" id="tax_id" name="tax_id" class="mono">
+                </div>
+                <div class="field" id="pan-field">
+                  <label for="pan">PAN <span class="req">*</span></label>
+                  <input type="text" id="pan" name="pan" class="mono">
+                </div>
+                <div class="field" id="company-number-field">
+                  <label for="company_number">Companies House number <span class="req">*</span></label>
+                  <input type="text" id="company_number" name="company_number" class="mono">
+                </div>
+              </div>
+            </section>
+
+            <section class="form-section">
+              <div class="section-title"><span class="num">4</span><div><h2>Bank account</h2><p>Where payments will go</p></div></div>
+              <div class="form-row">
+                <div class="field">
+                  <label for="bank_account_holder">Account holder name <span class="req">*</span></label>
+                  <input type="text" id="bank_account_holder" name="bank_account_holder">
+                  <div class="hint">As printed on the bank letter or cheque.</div>
+                </div>
+                <div class="field">
+                  <label for="bank_name">Bank name</label>
+                  <input type="text" id="bank_name" name="bank_name">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="field">
+                  <label for="bank_account_number">Account number <span class="req">*</span></label>
+                  <input type="text" id="bank_account_number" name="bank_account_number" class="mono">
+                </div>
+                <div class="field">
+                  <label for="bank_code" id="bank-code-label">Bank code <span class="req">*</span></label>
+                  <input type="text" id="bank_code" name="bank_code" class="mono">
+                </div>
+              </div>
+            </section>
+
+            <section class="form-section">
+              <div class="section-title"><span class="num">5</span><div><h2>Documents</h2><p>PDF, JPG or PNG, up to 5 MB each. Required documents depend on the country.</p></div></div>
+              <div class="drops" id="doc-rows"></div>
+            </section>
+
+            <div class="form-actions">
+              <button type="submit" class="btn primary" id="submit-btn">Submit for review</button>
+              <button type="button" class="btn ghost" id="clear-btn">Clear form</button>
+              <span class="muted small" id="submit-msg"></span>
+            </div>
+          </form>
+
+          <aside>
+            <div class="card">
+              <div class="card-head"><div><h2>Demo samples</h2><div class="sub">One click fills the form and attaches documents</div></div></div>
+              <div class="samples" id="samples"><div class="empty">Loading…</div></div>
+            </div>
+            <div class="card">
+              <div class="card-head"><div><h2>How it's checked</h2><div class="sub">Rules decide. AI only helps.</div></div></div>
+              <ul class="how">
+                <li><span>1</span><div><b>Intake &amp; completeness</b><em>Required fields and documents</em></div></li>
+                <li><span>2</span><div><b>Format validation</b><em>Formats and official check digits</em></div></li>
+                <li><span>3</span><div><b>Cross-field consistency</b><em>Fields agree with each other and the documents</em></div></li>
+                <li><span>4</span><div><b>Risk &amp; duplicates</b><em>Vendor master and blocked list</em></div></li>
+                <li><span>5</span><div><b>Decision</b><em>Approved, pending or rejected</em></div></li>
+                <li><span>6</span><div><b>Communicate</b><em>Email to vendor, alert to compliance</em></div></li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </main>
     </div>
-  </main>
+  </div>
+  <div class="scrim" id="scrim"></div>
 
   <script src="/js/common.js"></script>
   <script src="/js/submit.js"></script>
